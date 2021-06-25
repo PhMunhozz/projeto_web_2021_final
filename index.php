@@ -26,7 +26,7 @@ require("bd/conexao.php");
             <div class="sidebar" data-color="purple" data-background-color="black">
                 <div class="logo">
                     <a class="simple-text logo-normal">
-                        PGM
+                        <p>PGM</p>
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
@@ -34,19 +34,25 @@ require("bd/conexao.php");
                         <li class="nav-item active">
                             <a href="paginas/inicio.php" class="nav-link">
                                 <i class="material-icons">home</i>
-                                Início
+                                <p>Início</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="paginas/sobre.php" class="nav-link">
                                 <i class="material-icons">info</i>                                
-                                Sobre
+                                <p>Sobre</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="paginas/produtos/visualizar_produtos.php" class="nav-link">
+                                <i class="material-icons">shopping_cart</i>
+                                <p>Produtos</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="paginas/contato/formulario.php" class="nav-link">
                                 <i class="material-icons">contact_page</i>
-                                Contato
+                                <p>Contato</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -55,14 +61,14 @@ require("bd/conexao.php");
                         ?>
                             <a href="paginas/login/formulario.php" class="nav-link">
                                 <i class="material-icons">login</i>
-                                Login
+                                <p>Login</p>
                             </a>
                         <?php
                             } else {
                         ?>
                             <a href="paginas/area_restrita.php" class="nav-link">
                                 <i class="material-icons">dashboard</i>
-                                Área restrita
+                                <p>Área Restrita</p>
                             </a>
                         <?php
                             }

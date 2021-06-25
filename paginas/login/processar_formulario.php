@@ -14,7 +14,7 @@
             <div class="sidebar" data-color="purple" data-background-color="black">
                 <div class="logo">
                     <a class="simple-text logo-normal">
-                        PGM
+                        <p>PGM</p>
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
@@ -22,19 +22,25 @@
                         <li class="nav-item">
                             <a href="../inicio.php" class="nav-link">
                                 <i class="material-icons">home</i>
-                                Início
+                                <p>Início</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../sobre.php" class="nav-link">
                                 <i class="material-icons">info</i>                                
-                                Sobre
+                                <p>Sobre</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../produtos/visualizar_produtos" class="nav-link">
+                                <i class="material-icons">shopping_cart</i>
+                                <p>Produtos</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../contato/formulario.php" class="nav-link">
                                 <i class="material-icons">contact_page</i>
-                                Contato
+                                <p>Contato</p>
                             </a>
                         </li>
                         <li class="nav-item active">
@@ -43,14 +49,14 @@
                         ?>
                             <a href="../login/formulario.php" class="nav-link">
                                 <i class="material-icons">login</i>
-                                Login
+                                <p>Login</p>
                             </a>
                         <?php
                             } else {
                         ?>
                             <a href="../area_restrita.php" class="nav-link">
                                 <i class="material-icons">dashboard</i>
-                                Área restrita
+                                <p>Área restrita</p>
                             </a>
                         <?php
                             }
@@ -118,17 +124,17 @@
             </div>
         </div>
         
-        <script src="../assets/js/core/jquery.min.js"></script>
-        <script src="../assets/js/core/popper.min.js"></script>
-        <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+        <script src="../../assets/js/core/jquery.min.js"></script>
+        <script src="../../assets/js/core/popper.min.js"></script>
+        <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
         <script src="https://unpkg.com/default-passive-events"></script>
-        <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <script src="../assets/js/plugins/chartist.min.js"></script>
-        <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-        <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-        <script src="../assets/demo/demo.js"></script>
+        <script src="../../assets/js/plugins/chartist.min.js"></script>
+        <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+        <script src="../../assets/js/material-dashboard.js?v=2.1.0"></script>
+        <script src="../../assets/demo/demo.js"></script>
         <script>
             $(document).ready(function() {
             $().ready(function() {

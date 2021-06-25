@@ -45,8 +45,8 @@ class Produto
             $stmt = $pdo->prepare('INSERT INTO produtos (nome, descricao, foto, data_hora_criacao, data_hora_atualizacao) VALUES (:nome, :descricao, :foto, NOW(), NOW())');
             $stmt->execute(array(
                 ':nome' => $nome,
-                ':usuario' => $descricao,
-                ':senha' => $foto
+                ':descricao' => $descricao,
+                ':foto' => $foto
             ));
             return true;
         }catch(PDOException $e){

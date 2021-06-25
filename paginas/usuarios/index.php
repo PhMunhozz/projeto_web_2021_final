@@ -23,7 +23,7 @@ require('../../class/User.class.php');
     <div class="sidebar" data-color="purple" data-background-color="black">
       <div class="logo">
         <a class="simple-text logo-normal">
-          PGM - Administrativo
+          <p>PGM - Administrativo</p>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -38,6 +38,12 @@ require('../../class/User.class.php');
             <a class="nav-link" href="javascript:void(0)">
               <i class="material-icons">person</i>
               <p>Usuários</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../produtos" class="nav-link">
+              <i class="material-icons">store</i>
+              <p>Gerenciamento de Produtos</p>
             </a>
           </li>
           <li class="nav-item">
@@ -133,17 +139,17 @@ require('../../class/User.class.php');
       </div>
     </div>
   </div>
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../../assets/js/core/jquery.min.js"></script>
+  <script src="../../assets/js/core/popper.min.js"></script>
+  <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-  <script src="../assets/demo/demo.js"></script>
+  <script src="../../assets/js/plugins/chartist.min.js"></script>
+  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="../../assets/js/material-dashboard.js?v=2.1.0"></script>
+  <script src="../../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
