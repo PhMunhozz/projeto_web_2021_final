@@ -14,6 +14,7 @@ class Contato
             $contato['telefone'] = $row['telefone'];
             $contato['email'] = $row['email'];
             $contato['mensagem'] = $row['mensagem'];
+            $contato['data_hora'] = $row['data_hora'];
             $contatos[] = $contato;
         }
         if(isset($contatos)) return $contatos;
