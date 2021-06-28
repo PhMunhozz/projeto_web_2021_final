@@ -125,6 +125,13 @@ if (
                         </span>
                     </div>
                     <div>
+                        <span>Categoria:</span>
+                        <span class="text-success">
+                            <?php 
+                            echo $produto['categoria'] ?>
+                        </span>
+                    </div>
+                    <div>
                         <span>Descrição:</span>
                         <span class="text-success">
                             <?php echo $produto['descricao'] ?>

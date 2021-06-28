@@ -1,5 +1,11 @@
 <?php
+
 include('../../protected.php');
+require('../../../bd/conexao.php');
+require('../../../class/Categoria.class.php');
+$c = new  Categoria();
+$categorias = $c->listAllActive();
+
 protect();
 ?>
 
@@ -94,7 +100,7 @@ protect();
                 <div class="card-body">
                   <form action="create.php" method="POST">
                     <div class="row">
-                      <div class="col-md-9">
+                      <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                         <label class="bmd-label-floating">Nome</label>
                           <input type="text" class="form-control" name="nome" id="inputNome" required>
@@ -103,18 +109,30 @@ protect();
                       <div class="col-md-3">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">Foto</label>
-                          <input type="text" class="form-control" name="foto" id="inputUsuario" required>
-                        </div>
-                      </div>                      
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group bmd-form-group">
-                                <label class="bmd-label-floating">Descrição</label>
-                                <textarea class="form-control" rows="10" name="descricao" required></textarea>                                                        
-                            </div>
+                          <input type="text" class="form-control" name="foto" id="inputFoto" required>
                         </div>
                       </div>
+                      <div class="col-md-3">
+                        <div class="form-group bmd-form-group">
+                          <label class="bmd-label-floating">Categoria</label>
+                          <select class="form-control" name="idcategoria" id="inputCategoria">
+                            <?php
+                            for ($i = 0; $i < count($categorias); $i++) {
+                                echo '<option value="'.$categorias[$i]['id'].'">'.$categorias[$i]['nome'].'</option>';
+                            }
+                            ?>
+                          </select>
+                        </div>
+                      </div>                          
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group bmd-form-group">
+                              <label class="bmd-label-floating">Descrição</label>
+                              <textarea class="form-control" rows="10" name="descricao" required></textarea>                                                        
+                          </div>
+                      </div>
+                    </div>
                     <button type="submit" class="btn btn-primary pull-right" style="float: right;">Cadastrar</button>
                     <div class="clearfix"></div>
                   </form>

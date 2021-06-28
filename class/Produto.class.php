@@ -5,13 +5,14 @@ class Produto
     public function listAll()
     {
         global $pdo;
-        $query = 'SELECT * FROM produtos';
+        $query = 'SELECT P.*, C.nome AS categoria FROM produtos P INNER JOIN categorias C ON C.id = P.idcategoria';
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $produto['id'] = $row['id'];
             $produto['nome'] = $row['nome'];
             $produto['descricao'] = $row['descricao'];
+            $produto['categoria'] = $row['categoria'];
             $produto['foto'] = $row['foto'];
             $produto['data_hora_criacao'] = $row['data_hora_criacao'];
             $produto['data_hora_atualizacao'] = $row['data_hora_atualizacao'];
@@ -25,7 +26,7 @@ class Produto
     {
         global $pdo;
 
-		$query = 'SELECT * FROM produtos WHERE id = :id';
+		$query = 'SELECT P.*, C.nome AS categoria FROM produtos P INNER JOIN categorias C ON C.id = P.idcategoria WHERE P.id = :id';
 		$query = $pdo->prepare($query);
 		$query->bindValue("id", $id);
 		$query->execute();
@@ -39,14 +40,15 @@ class Produto
 		}
     }
 
-    public function insert($nome, $descricao, $foto){
+    public function insert($nome, $descricao, $foto, $idcategoria){
         try{
             global $pdo;
-            $stmt = $pdo->prepare('INSERT INTO produtos (nome, descricao, foto, data_hora_criacao, data_hora_atualizacao) VALUES (:nome, :descricao, :foto, NOW(), NOW())');
+            $stmt = $pdo->prepare('INSERT INTO produtos (nome, descricao, foto, idcategoria, data_hora_criacao, data_hora_atualizacao) VALUES (:nome, :descricao, :foto, :idcategoria, NOW(), NOW())');
             $stmt->execute(array(
                 ':nome' => $nome,
                 ':descricao' => $descricao,
-                ':foto' => $foto
+                ':foto' => $foto,
+                ':idcategoria' => $idcategoria
             ));
             return true;
         }catch(PDOException $e){
@@ -68,14 +70,15 @@ class Produto
 		}
     }
 
-    public function update($nome, $descricao, $foto, $id){
+    public function update($nome, $descricao, $foto, $idcategoria, $id){
         try{
             global $pdo;
-            $stmt = $pdo->prepare('UPDATE produtos SET nome = :nome, descricao = :descricao, data_hora_atualizacao = NOW() WHERE id = :id');
+            $stmt = $pdo->prepare('UPDATE produtos SET nome = :nome, descricao = :descricao, foto = :foto, idcategoria = :idcategoria, data_hora_atualizacao = NOW() WHERE id = :id');
             $stmt->execute(array(
                 ':nome' => $nome,
                 ':descricao' => $descricao,
                 ':foto' => $foto,
+                ':idcategoria' => $idcategoria,
                 ':id' => $id
             ));
             return true;
