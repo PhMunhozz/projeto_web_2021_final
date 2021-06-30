@@ -19,9 +19,9 @@ if (
     if($user == null){
         header('location: ../../usuarios');
     }else{
-        $a = $u->$usuario;
+        $deletado = $user['nome'];
         $u->remove($id);
-        $l->insert($id, 'usuarios', 'Usuário "' . $a . '" deletado com sucesso');
+        $l->insert($id, 'usuarios', 'Usuário "' . $deletado . '" deletado com sucesso');
         header('location: ../../usuarios');
     }
 }

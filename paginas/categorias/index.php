@@ -4,7 +4,9 @@ include('../protected.php');
 protect();
 
 require('../../bd/conexao.php');
-require('../../class/Produto.class.php');
+require('../../class/Categoria.class.php');
+
+
 ?>
 <!doctype html>
 <html lang="br">
@@ -40,14 +42,14 @@ require('../../class/Produto.class.php');
               <p>Usuários</p>
             </a>
           </li>
-          <li class="nav-item active">
-            <a href="javascript:void(0)" class="nav-link">
+          <li class="nav-item">
+            <a href="../produtos" class="nav-link">
               <i class="material-icons">store</i>
               <p>Gerenciamento de Produtos</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="../categorias" class="nav-link">
+          <li class="nav-item active">
+            <a href="javascript:void(0)" class="nav-link">
               <i class="material-icons">category</i>
               <p>Categorias de Produtos</p>
             </a>
@@ -95,14 +97,14 @@ require('../../class/Produto.class.php');
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-primary pull-right" href="create" style="float: right;">Novo Produto<div class="ripple-container"></div></a>
+                <a class="btn btn-primary pull-right" href="create" style="float: right;">Nova Categoria<div class="ripple-container"></div></a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
               <div class="card card-plain">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"> Lista de produtos cadastrados</h4>
+                  <h4 class="card-title mt-0"> Lista de categorias cadastradas</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -111,9 +113,7 @@ require('../../class/Produto.class.php');
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Categoria</th>
-                            <th>Foto</th>
+                            <th>Situação</th>
                             <th style="width: 2%;"></th>
                             <th style="width: 2%;"></th>
                             <th style="width: 2%;"></th>
@@ -121,22 +121,29 @@ require('../../class/Produto.class.php');
                       </thead>
                       <tbody>
                       <?php
-                        $p = new Produto();
-                        $produtos = $p->listAll();
-                        if(isset($produtos)) {
-                          for ($i = 0; $i < count($produtos); $i++) {
+                        $c = new Categoria();
+                        $categorias = $c->listAll();
+                        if(isset($categorias)) {
+                          for ($i = 0; $i < count($categorias); $i++) {
                               echo '<tr>';
-                              echo '<td>'.$produtos[$i]['id'].'</td>';
-                              echo '<td>'.$produtos[$i]['nome'].'</td>';
-                              echo '<td>'.$produtos[$i]['descricao'].'</td>';
-                              echo '<td>'.$produtos[$i]['categoria'].'</td>';
-                              echo '<td>'.$produtos[$i]['foto'].'</td>';
-                              echo '<td><a href="update/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: #df9100">edit</i><a/></td>';
-                              echo '<td><a href="delete/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: red">close</i><a/></td>';
-                              echo '<td><a href="detail/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: #5555c0">visibility</i></a></td>';
+                              echo '<td>'.$categorias[$i]['id'].'</td>';
+                              echo '<td>'.$categorias[$i]['nome'].'</td>';
+                              
+                              // Verifica a situação da categoria
+                              $situacao = $categorias[$i]['situacao'] == 1 ? 'Ativado' : 'Desativado';
+                              echo '<td>'.$situacao.'</td>';
+
+                              echo '<td><a href="update/?ref='.$categorias[$i]['id'].'"><i class="material-icons" style="color: #df9100">edit</i><a/></td>';
+                             
+                              // Verifica se a categoria está associada a algum produto para poder excluí-la
+                              $hasProduto = $categorias[$i]['hasProduto'] == NULL ? TRUE : FALSE;
+                              if($hasProduto) echo '<td><a href="delete/?ref='.$categorias[$i]['id'].'"><i class="material-icons" style="color: red">close</i><a/></td>';
+                              else echo '<td><a href="javascript:void(0)"><i class="material-icons" style="color: grey">close</i><a/></td>';
+                              
+                              echo '<td><a href="detail/?ref='.$categorias[$i]['id'].'"><i class="material-icons" style="color: #5555c0">visibility</i></a></td>';
                               echo '</tr>';
                           }
-                        } else echo 'Sem produtos cadastrados';
+                        } else echo 'Sem categorias cadastradas';
                       ?>
                       </tbody>
                     </table>

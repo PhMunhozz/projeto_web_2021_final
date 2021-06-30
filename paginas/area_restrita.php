@@ -48,6 +48,12 @@ if(!isset($_SESSION["nome"])){
             </a>
           </li>
           <li class="nav-item">
+            <a href="categorias" class="nav-link">
+              <i class="material-icons">category</i>
+              <p>Categorias de Produtos</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="contato/tabela.php">
               <i class="material-icons">email</i>
               <p>Mensagens de Contato</p>

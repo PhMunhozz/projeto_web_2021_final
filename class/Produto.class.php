@@ -40,14 +40,15 @@ class Produto
 		}
     }
 
-    public function insert($nome, $descricao, $foto, $idcategoria){
+    public function insert($nome, $descricao, $foto, $ext, $idcategoria){
         try{
             global $pdo;
-            $stmt = $pdo->prepare('INSERT INTO produtos (nome, descricao, foto, idcategoria, data_hora_criacao, data_hora_atualizacao) VALUES (:nome, :descricao, :foto, :idcategoria, NOW(), NOW())');
+            $stmt = $pdo->prepare('INSERT INTO produtos (nome, descricao, foto, ext, idcategoria, data_hora_criacao, data_hora_atualizacao) VALUES (:nome, :descricao, :foto, :ext, :idcategoria, NOW(), NOW())');
             $stmt->execute(array(
                 ':nome' => $nome,
                 ':descricao' => $descricao,
                 ':foto' => $foto,
+                ':ext' => $ext,
                 ':idcategoria' => $idcategoria
             ));
             return true;
@@ -59,6 +60,20 @@ class Produto
     public function selectscalar(){
         global $pdo;
 		$query = 'SELECT max(id) as id FROM produtos';
+		$query = $pdo->prepare($query);
+		$query->execute();
+
+		if($query->rowCount() > 0){
+			$data = $query->fetch();
+            return $data;
+		}else{
+			return 0;
+		}
+    }
+
+    public function selectNextId(){
+        global $pdo;
+		$query = "SELECT auto_increment AS id FROM information_schema.tables WHERE table_name = 'produtos' AND table_schema = 'projeto_web_2021_1'";
 		$query = $pdo->prepare($query);
 		$query->execute();
 

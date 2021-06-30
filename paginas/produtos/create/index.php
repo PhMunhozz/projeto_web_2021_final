@@ -50,6 +50,12 @@ protect();
             </a>
           </li>
           <li class="nav-item">
+            <a href="../../categorias" class="nav-link">
+              <i class="material-icons">category</i>
+              <p>Categorias de Produtos</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="../../contato/tabela.php">
               <i class="material-icons">email</i>
               <p>Mensagens de Contato</p>
@@ -98,27 +104,28 @@ protect();
                   <h4 class="card-title">Novo produto</h4>
                 </div>
                 <div class="card-body">
-                  <form action="create.php" method="POST">
+                  <form action="create.php" method="POST" enctype="multipart/form-data">
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group bmd-form-group">
                         <label class="bmd-label-floating">Nome</label>
                           <input type="text" class="form-control" name="nome" id="inputNome" required>
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group bmd-form-group">
-                          <label class="bmd-label-floating">Foto</label>
-                          <input type="text" class="form-control" name="foto" id="inputFoto" required>
+                      <div class="col-md-4">
+                        <div>
+                          <label for="inputFoto">Foto</label>
+                          <input type="file" class="form-control-file" accept="image/png, image/jpeg" name="foto" id="inputFoto" required>
+                          <!-- <input type="text" class="form-control" name="foto" id="inputFoto" required> -->
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group bmd-form-group">
-                          <label class="bmd-label-floating">Categoria</label>
                           <select class="form-control" name="idcategoria" id="inputCategoria">
+                            <option value="" selected hidden disabled style="background-color: white; color: black">Categoria</option>
                             <?php
                             for ($i = 0; $i < count($categorias); $i++) {
-                                echo '<option value="'.$categorias[$i]['id'].'">'.$categorias[$i]['nome'].'</option>';
+                                echo '<option value="'.$categorias[$i]['id'].'" style="background-color: white; color: black">'.$categorias[$i]['nome'].'</option>';
                             }
                             ?>
                           </select>

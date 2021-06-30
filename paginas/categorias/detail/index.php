@@ -1,10 +1,23 @@
 <?php
-// error_reporting(0);
-include('../protected.php');
+
+include('../../protected.php');
 protect();
 
-require('../../bd/conexao.php');
-require('../../class/Produto.class.php');
+if (
+    isset($_GET['ref']) && !empty($_GET['ref'])
+) {
+    require('../../../bd/conexao.php');
+	require('../../../class/Categoria.class.php');
+
+    $c = new Categoria();
+
+    $id = addslashes($_GET['ref']);
+    $categoria = $c->listById($id);
+
+    if($categoria == null){
+        header('location: ../../categorias');
+    }
+}
 ?>
 <!doctype html>
 <html lang="br">
@@ -15,7 +28,7 @@ require('../../class/Produto.class.php');
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link href="../../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link href="../../../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
 </head>
 
 <body class="dark-edition">
@@ -29,44 +42,44 @@ require('../../class/Produto.class.php');
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="../area_restrita.php">
+            <a class="nav-link" href="../../area_restrita.php">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../usuarios">
+            <a class="nav-link" href="../../usuarios">
               <i class="material-icons">person</i>
               <p>Usuários</p>
             </a>
           </li>
-          <li class="nav-item active">
-            <a href="javascript:void(0)" class="nav-link">
+          <li class="nav-item">
+            <a href="../../produtos" class="nav-link">
               <i class="material-icons">store</i>
               <p>Gerenciamento de Produtos</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="../categorias" class="nav-link">
+          <li class="nav-item active">
+            <a href="../../categorias" class="nav-link">
               <i class="material-icons">category</i>
               <p>Categorias de Produtos</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../contato/tabela.php">
+            <a class="nav-link" href="../../contato/tabela.php">
               <i class="material-icons">email</i>
               <p>Mensagens de Contato</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../logs">
+            <a class="nav-link" href="../../logs">
               <i class="material-icons">history</i>
               <p>Logs</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../inicio.php">
-              <i class="material-icons">people</i>
+            <a class="nav-link" href="../../inicio.php">
+              <i class="material-icons">person</i>
               <p>Área de Usuários</p>
             </a>
           </li>
@@ -86,7 +99,7 @@ require('../../class/Produto.class.php');
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="justify-content-end">
-            <a href="../login/limpar_sessao.php"><i class="material-icons">logout</i></a>
+            <a href="../../login/limpar_sessao.php"><i class="material-icons">logout</i></a>
           </div>
         </div>
       </nav>
@@ -95,71 +108,67 @@ require('../../class/Produto.class.php');
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-primary pull-right" href="create" style="float: right;">Novo Produto<div class="ripple-container"></div></a>
+                <a class="btn btn-warning pull-right" href="../update/?ref=<?php echo $id; ?>" style="float: right;">Alterar Categoria<div class="ripple-container"></div></a>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-              <div class="card card-plain">
+        <div class="col-md-12">
+              <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"> Lista de produtos cadastrados</h4>
+                  <h4 class="card-title">Visualizar categoria</h4>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Categoria</th>
-                            <th>Foto</th>
-                            <th style="width: 2%;"></th>
-                            <th style="width: 2%;"></th>
-                            <th style="width: 2%;"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                        $p = new Produto();
-                        $produtos = $p->listAll();
-                        if(isset($produtos)) {
-                          for ($i = 0; $i < count($produtos); $i++) {
-                              echo '<tr>';
-                              echo '<td>'.$produtos[$i]['id'].'</td>';
-                              echo '<td>'.$produtos[$i]['nome'].'</td>';
-                              echo '<td>'.$produtos[$i]['descricao'].'</td>';
-                              echo '<td>'.$produtos[$i]['categoria'].'</td>';
-                              echo '<td>'.$produtos[$i]['foto'].'</td>';
-                              echo '<td><a href="update/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: #df9100">edit</i><a/></td>';
-                              echo '<td><a href="delete/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: red">close</i><a/></td>';
-                              echo '<td><a href="detail/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: #5555c0">visibility</i></a></td>';
-                              echo '</tr>';
-                          }
-                        } else echo 'Sem produtos cadastrados';
-                      ?>
-                      </tbody>
-                    </table>
-                  </div>
+                    <div>
+                        <span>Id:</span>
+                        <span class="text-success">
+                            <?php echo $id ?>
+                        </span>
+                    </div>
+                    <div>
+                        <span>Nome:</span>
+                        <span class="text-success">
+                            <?php echo $categoria['nome'] ?>
+                        </span>
+                    </div>
+                    <div>
+                        <span>Situação:</span>
+                        <span class="text-success">
+                            <?php
+                            $situacao = $categoria['situacao'] == 1 ? 'Ativado' : 'Desativado';
+                            echo $situacao;
+                            ?>
+                        </span>
+                    </div>
+                    <div>
+                        <span>Data de criação:</span>
+                        <span class="text-success">
+                            <?php echo $categoria['data_hora_criacao'] ?>
+                        </span>
+                    </div>
+                    <div>
+                        <span>Data de atualização:</span>
+                        <span class="text-success">
+                            <?php echo $categoria['data_hora_atualizacao'] ?>
+                        </span>
+                    </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../../../assets/js/core/jquery.min.js"></script>
+  <script src="../../../assets/js/core/popper.min.js"></script>
+  <script src="../../../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-  <script src="../assets/demo/demo.js"></script>
+  <script src="../../../assets/js/plugins/chartist.min.js"></script>
+  <script src="../../../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="../../../assets/js/material-dashboard.js?v=2.1.0"></script>
+  <script src="../../../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

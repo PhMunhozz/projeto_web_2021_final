@@ -65,6 +65,12 @@ if (
             </a>
           </li>
           <li class="nav-item">
+            <a href="../../categorias" class="nav-link">
+              <i class="material-icons">category</i>
+              <p>Categorias de Produtos</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="../../contato/tabela.php">
               <i class="material-icons">email</i>
               <p>Mensagens de Contato</p>
@@ -120,25 +126,25 @@ if (
                   <form action="update.php" method="POST">
                     <div class="row">
                       <input type="hidden" name="id" id="inputId" value="<?php echo $id ?>">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group bmd-form-group">
                         <label class="bmd-label-floating">Nome</label>
                           <input type="text" class="form-control" name="nome" id="inputNome" value="<?php echo $produto['nome'] ?>">
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group bmd-form-group">
+                      <div class="col-md-4">
+                        <div>
                           <label class="bmd-label-floating">Foto</label>
-                          <input type="text" class="form-control" name="foto" id="inputFoto" value="<?php echo $produto['foto'] ?>">
+                          <input type="file" class="form-control-file" accept="image/png, image/jpeg" name="foto" id="inputFoto" required>
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group bmd-form-group">
                             <label class="bmd-label-floating">Categoria</label>
-                            <select class="form-control" name="categoria" id="inputCategoria">
+                            <select class="form-control" name="idcategoria" id="inputCategoria">
                                 <?php
                                 for ($i = 0; $i < count($categorias); $i++) {
-                                    echo '<option value="'.$categorias[$i]['id'].'"'.($produto['idcategoria'] == $categorias[$i]['id'] ? "selected" : "").'>'.$categorias[$i]['nome'].'</option>';
+                                    echo '<option style="background-color: white; color: black" value="'.$categorias[$i]['id'].'"'.($produto['idcategoria'] == $categorias[$i]['id'] ? "selected" : "").'>'.$categorias[$i]['nome'].'</option>';
                                 }
                                 ?>
                             </select>

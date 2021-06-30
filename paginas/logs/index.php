@@ -47,6 +47,12 @@ require('../../class/Log.class.php');
             </a>
           </li>
           <li class="nav-item">
+            <a href="../categorias" class="nav-link">
+              <i class="material-icons">category</i>
+              <p>Categorias de Produtos</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="../contato/tabela.php">
               <i class="material-icons">email</i>
               <p>Mensagens de Contato</p>
@@ -110,7 +116,7 @@ require('../../class/Log.class.php');
                         $l = new Log();
                         $logs = $l->listAll();
                         if(isset($logs)) {
-                          for ($i = 0; $i < count($logs); $i++) {
+                          for ($i = count($logs)-1; $i >=0; $i--) {
                               echo '<tr>';
                               echo '<td>'.$logs[$i]['id'].'</td>';
                               echo '<td>'.$logs[$i]['codigoid'].'</td>';

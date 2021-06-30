@@ -46,6 +46,12 @@ require('../../class/Contato.class.php');
               <p>Gerenciamento de Produtos</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="../categorias" class="nav-link">
+              <i class="material-icons">category</i>
+              <p>Categorias de Produtos</p>
+            </a>
+          </li>
           <li class="nav-item active">
             <a class="nav-link" href="javascript:void(0)">
               <i class="material-icons">email</i>
@@ -98,6 +104,7 @@ require('../../class/Contato.class.php');
                     <table class="table table-hover">
                       <thead class="">
                         <tr>
+                            <th>Id</th>
                             <th>Nome</th>
                             <th>Telefone</th>
                             <th>E-mail</th>
@@ -110,8 +117,9 @@ require('../../class/Contato.class.php');
                         $c = new Contato();
                         $contatos = $c->listAll();
                         if(isset($contatos)) {
-                          for ($i = 0; $i < count($contatos); $i++) {
+                          for ($i = count($contatos)-1; $i >= 0; $i--) {
                               echo '<tr>';
+                              echo '<td>'.$contatos[$i]['id'].'</td>';
                               echo '<td>'.$contatos[$i]['nome'].'</td>';
                               echo '<td>'.$contatos[$i]['telefone'].'</td>';
                               echo '<td>'.$contatos[$i]['email'].'</td>';

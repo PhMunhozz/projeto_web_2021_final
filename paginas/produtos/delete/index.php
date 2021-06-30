@@ -19,9 +19,11 @@ if (
     if($produto == null){
         header('location: ../../produtos');
     }else{
-        $a = $p->$descricao;
+        $deletado = $produto['nome'];
+        $local = '../fotos/' . $produto['foto'] . '.' . $produto['ext'];
+        unlink($local);
         $p->remove($id);
-        $l->insert($id, 'produtos', 'Produto "' . $a . '" deletado com sucesso');
+        $l->insert($id, 'produtos', 'Produto "' . $deletado . '" deletado com sucesso');
         header('location: ../../produtos');
     }
 }
