@@ -23,7 +23,7 @@ if(
     $id = addslashes($_POST['id']);
 
 	if($p->update($nome, $descricao, $foto, $idcategoria, $id)){
-		$l->insert($id, 'produtos', 'Produto "' . $descricao . '" alterado com sucesso');
+		$l->insert($id, 'produtos', 'Produto "' . $nome . '" alterado com sucesso');
 		header('location: ../../produtos');
 	}else{
 		echo 'Ocorreu um erro ao atualizar';

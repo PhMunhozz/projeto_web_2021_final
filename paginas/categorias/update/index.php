@@ -133,7 +133,7 @@ if (
                                 $valor2 = $situacao1 == 'Ativado' ? 0 : 1;                            
                             ?>
                             <option value="<?php echo $categoria['situacao'] ?>" selected style="background-color: white; color: black"><?php echo $situacao1 ?></option>
-                            <option value="<?php echo $valor2 ?>" style="background-color: white; color: black"><?php echo $situacao2 ?></option>;
+                            <option value="<?php echo $valor2 ?>" style="background-color: white; color: black"><?php echo $situacao2 ?></option>
                           </select>
                         </div>
                       </div>

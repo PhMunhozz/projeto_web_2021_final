@@ -111,8 +111,8 @@ protect();
                         <div class="form-group bmd-form-group">
                           <select class="form-control" name="situacao" id="inputSituacao">
                             <option value="" selected hidden disabled style="background-color: white; color: black">Situação</option>
-                            <option value="1" style="background-color: white; color: black">Ativado</option>;
-                            <option value="0" style="background-color: white; color: black">Desativado</option>;
+                            <option value="1" style="background-color: white; color: black">Ativado</option>
+                            <option value="0" style="background-color: white; color: black">Desativado</option>
                           </select>
                         </div>
                       </div>                          

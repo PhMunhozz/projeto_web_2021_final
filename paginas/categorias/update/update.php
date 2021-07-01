@@ -5,7 +5,6 @@ protect();
 
 if(
     isset($_POST['nome']) && !empty($_POST['nome']) &&
-    isset($_POST['situacao']) && !empty($_POST['situacao']) &&
 	isset($_POST['id']) && !empty($_POST['id'])
 ) {
 	require('../../../bd/conexao.php');

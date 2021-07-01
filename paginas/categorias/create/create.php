@@ -5,8 +5,7 @@ protect();
 
 
 if(
-    isset($_POST['nome']) && !empty($_POST['nome']) &&
-    isset($_POST['situacao']) && !empty($_POST['situacao'])
+    isset($_POST['nome']) && !empty($_POST['nome'])
 ) {
 	require('../../../bd/conexao.php');
 	require('../../../class/Categoria.class.php');
@@ -15,8 +14,8 @@ if(
 	$c = new Categoria();
 	$l = new Log();
 
-	$nome = addslashes($_POST['nome']);
-    $situacao = addslashes($_POST['situacao']);
+	echo $nome = addslashes($_POST['nome']);
+    echo $situacao = addslashes($_POST['situacao']);
 
 
 	if($c->insert($nome, $situacao)){
