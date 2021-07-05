@@ -5,7 +5,7 @@ if(!function_exists('protect')){
             session_start();
         }
 
-        if(!isset($_SESSION["nome"])){
+        if(!isset($_SESSION["usuarionome"])){
             header('Location: ../../login/formulario.php');
         }
     }

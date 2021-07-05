@@ -1,44 +1,21 @@
 <?php
     session_start();
 
-    require("../../bd/conexao.php");
-
-    $sqlCidades = "SELECT c.id, c.nome, e.sigla AS sigla_estado FROM cidades c INNER JOIN estados e ON e.id = c.estado_id";
-    $resultCidades = $conn->query($sqlCidades, PDO::FETCH_ASSOC);
-
-    if(!empty($_POST)){
+    if (
+        isset($_GET['ref']) && !empty($_GET['ref'])
+    ) {
+        require('../../../bd/conexao.php');
+        require('../../../class/Produto.class.php');
     
-        $nome = $_POST["nome"];
-        $telefone = $_POST["telefone"];
-        $email = $_POST["email"];
-        $cidade = $_POST["cidade"];
-        $mensagem = $_POST["mensagem"];
+        $p = new Produto();
     
-        # Insert no banco de dados
-        $stmt = $conn->prepare("INSERT INTO contatos (nome, telefone, email, cidade_id, mensagem) VALUES (:nome, :telefone, :email, :cidade, :mensagem)");
+        $id = addslashes($_GET['ref']);
+        $produto = $p->listById($id);
     
-        $bind_param = ["nome" => $nome, "telefone" => $telefone, "email" => $email, "cidade" => $cidade, "mensagem" => $mensagem];
-    
-        try {
-            $conn->beginTransaction();
-            $stmt->execute($bind_param);
-            echo "<script>window.onload = function(){showNotification('top','left', 'Mensagem enviada com sucesso!', 'success', 'add_alert')}</script>";
-            $conn->commit();
-        } catch(PDOExecption $e) {
-            $conn->rollback();
-            echo "<script>window.onload = function(){showNotification('top','left', 'Mensagem não enviada! Tente novamente.', 'danger', 'add_alert')}</script>";
+        if($produto == null){
+            header('location: ../../produtos/visualizar_produtos.php');
         }
-    
     }
-    
-    $sql = "SELECT co.id, co.nome, co.telefone, co.email, co.mensagem, uf.sigla AS estado, ci.nome AS cidade, DATE_FORMAT(co.data_hora, '%d/%m/%Y %H:%i:%S') AS data_hora
-            FROM contatos co 
-            INNER JOIN cidades ci ON ci.id = co.cidade_id 
-            INNER JOIN estados uf ON uf.id = ci.estado_id
-            ORDER BY co.id DESC";
-    
-    $result = $conn->query($sql, PDO::FETCH_ASSOC);
-    
 ?>
 
 <html>
@@ -49,7 +26,7 @@
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-        <link href="../../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+        <link href="../../../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
     </head>
 
     <body class="dark-edition">
@@ -63,25 +40,25 @@
                 <div class="sidebar-wrapper">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a href="../inicio.php" class="nav-link">
+                            <a href="../../inicio.php" class="nav-link">
                                 <i class="material-icons">home</i>
                                 <p>Início</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../sobre.php" class="nav-link">
+                            <a href="../../sobre.php" class="nav-link">
                                 <i class="material-icons">info</i>                                
                                 <p>Sobre</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="../produtos/visualizar_produtos.php" class="nav-link">
+                        <li class="nav-item active">
+                            <a href="../visualizar_produtos.php" class="nav-link">
                                 <i class="material-icons">shopping_cart</i>
                                 <p>Produtos</p>
                             </a>
                         </li>
-                        <li class="nav-item active">
-                            <a href="javascript:void(0)" class="nav-link">
+                        <li class="nav-item">
+                            <a href="../../contato/formulario.php" class="nav-link">
                                 <i class="material-icons">contact_page</i>
                                 <p>Contato</p>
                             </a>
@@ -90,14 +67,14 @@
                         <?php
                             if(!isset($_SESSION["usuarionome"])) {
                         ?>
-                            <a href="../login/formulario.php" class="nav-link">
+                            <a href="../../login/formulario.php" class="nav-link">
                                 <i class="material-icons">login</i>
                                 <p>Login</p>
                             </a>
                         <?php
                             } else {
                         ?>
-                            <a href="../area_restrita.php" class="nav-link">
+                            <a href="../../area_restrita.php" class="nav-link">
                                 <i class="material-icons">manage_accounts</i>
                                 <p>Área restrita</p>
                             </a>
@@ -138,57 +115,52 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header card-header-primary">
-                                        <h4 class="card-title">Entre em contato</h4>
+                                        <h4 class="card-title"><a href="javascript:history.back()"><i class="material-icons">arrow_back</i></a> Visualizar produto</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form  method="POST">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group bmd-form-group">
-                                                        <label class="bmd-label-floating">Nome</label>
-                                                        <input type="text" class="form-control" name="nome" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group bmd-form-group">
-                                                        <label class="bmd-label-floating">Telefone</label>
-                                                        <input type="text" class="form-control" name="telefone" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group bmd-form-group">
-                                                        <select  name="cidade" class="form-control" required>
-                                                        <option value="" selected hidden disabled style="background-color: white; color: black">Cidade</option>
-                                                            <?php
-                                                                while($linha = $resultCidades->fetch()){
-                                                            ?>
-                                                                <option style="background-color: white; color: black" value="<?= $linha["id"] ?>"><?= $linha["nome"] ?> (<?= $linha["sigla_estado"] ?>)</option>
-                                                            <?php 
-                                                                } 
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group bmd-form-group">
-                                                        <label class="bmd-label-floating">E-mail</label>
-                                                        <input type="email" class="form-control" name="email" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group bmd-form-group">
-                                                        <label class="bmd-label-floating">Mensagem</label>
-                                                        <textarea class="form-control" rows="10" name="mensagem" required></textarea>                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary pull-right" style="float: right;">Cadastrar</button>
-                                            <div class="clearfix"></div>
-                                        </form>
+                                        <div>
+                                            <span>Foto:</span>
+                                            <span class="text-success">
+                                                <?php echo '<img src="../fotos/'.$produto['foto'].'.'.$produto['ext'].'" style="width: 10%; border-radius: 50%">'; ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>Id:</span>
+                                            <span class="text-success">
+                                                <?php echo $id ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>Nome:</span>
+                                            <span class="text-success">
+                                                <?php echo $produto['nome'] ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>Categoria:</span>
+                                            <span class="text-success">
+                                                <?php 
+                                                echo $produto['categoria'] ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>Descrição:</span>
+                                            <span class="text-success">
+                                                <?php echo $produto['descricao'] ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>Data de criação:</span>
+                                            <span class="text-success">
+                                                <?php echo $produto['data_hora_criacao'] ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>Data de atualização:</span>
+                                            <span class="text-success">
+                                                <?php echo $produto['data_hora_atualizacao'] ?>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -198,37 +170,19 @@
             </div>
         </div>
         
-        <script src="../../assets/js/core/jquery.min.js"></script>
-        <script src="../../assets/js/core/popper.min.js"></script>
-        <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
+        <script src="../../../assets/js/core/jquery.min.js"></script>
+        <script src="../../../assets/js/core/popper.min.js"></script>
+        <script src="../../../assets/js/core/bootstrap-material-design.min.js"></script>
         <script src="https://unpkg.com/default-passive-events"></script>
-        <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <script src="../../assets/js/plugins/chartist.min.js"></script>
-        <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
-        <script src="../../assets/js/material-dashboard.js?v=2.1.0"></script>
-        <script src="../../assets/demo/demo.js"></script>
+        <script src="../../../assets/js/plugins/chartist.min.js"></script>
+        <script src="../../../assets/js/plugins/bootstrap-notify.js"></script>
+        <script src="../../../assets/js/material-dashboard.js?v=2.1.0"></script>
+        <script src="../../../assets/demo/demo.js"></script>
         <script>
-
-        function showNotification(from, align, text, tipo, icone) {
-
-                $.notify({
-                icon: icone,
-                message: text
-
-                }, {
-                type: tipo,
-                timer: 3000,
-                placement: {
-                    from: from,
-                    align: align
-                }
-                });
-            }
-
             $(document).ready(function() {
-                
             $().ready(function() {
                 $sidebar = $('.sidebar');
 
@@ -374,7 +328,6 @@
                     }, 300);
                 }
 
-                
                 var simulateWindowResize = setInterval(function() {
                     window.dispatchEvent(new Event('resize'));
                 }, 180);

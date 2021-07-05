@@ -115,9 +115,15 @@ if (
         <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Visualizar produto</h4>
+                  <h4 class="card-title"><a href="javascript:history.back()"><i class="material-icons">arrow_back</i></a> Visualizar produto</h4>
                 </div>
                 <div class="card-body">
+                    <div>
+                        <span>Foto:</span>
+                        <span class="text-success">
+                            <?php echo '<img src="../fotos/'.$produto['foto'].'.'.$produto['ext'].'" style="width: 10%; border-radius: 50%">'; ?>
+                        </span>
+                    </div>
                     <div>
                         <span>Id:</span>
                         <span class="text-success">
@@ -141,12 +147,6 @@ if (
                         <span>Descrição:</span>
                         <span class="text-success">
                             <?php echo $produto['descricao'] ?>
-                        </span>
-                    </div>
-                    <div>
-                        <span>Foto:</span>
-                        <span class="text-success">
-                            <?php echo $produto['foto'] ?>
                         </span>
                     </div>
                     <div>

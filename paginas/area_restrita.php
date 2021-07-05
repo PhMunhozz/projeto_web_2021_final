@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["nome"])){
+if(!isset($_SESSION["usuarioid"])){
     header('Location: login/formulario.php');
 }
 
@@ -94,7 +94,7 @@ if(!isset($_SESSION["nome"])){
       <div class="content">
         <div class="container-fluid">
             <h3 style="color: whitesmoke;">Área restrita</h3>
-            <p style="color: whitesmoke;">Bem-vindo(a), <?= $_SESSION["nome"] ?>!</p>
+            <p style="color: whitesmoke;">Bem-vindo(a), <?= $_SESSION["usuarionome"] ?>!</p>
         </div>
       </div>
     </div>

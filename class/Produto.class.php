@@ -14,6 +14,7 @@ class Produto
             $produto['descricao'] = $row['descricao'];
             $produto['categoria'] = $row['categoria'];
             $produto['foto'] = $row['foto'];
+            $produto['ext'] = $row['ext'];
             $produto['data_hora_criacao'] = $row['data_hora_criacao'];
             $produto['data_hora_atualizacao'] = $row['data_hora_atualizacao'];
             //Adiciona o objeto produto na lista de produtos
@@ -85,14 +86,15 @@ class Produto
 		}
     }
 
-    public function update($nome, $descricao, $foto, $idcategoria, $id){
+    public function update($nome, $descricao, $foto, $ext, $idcategoria, $id){
         try{
             global $pdo;
-            $stmt = $pdo->prepare('UPDATE produtos SET nome = :nome, descricao = :descricao, foto = :foto, idcategoria = :idcategoria, data_hora_atualizacao = NOW() WHERE id = :id');
+            $stmt = $pdo->prepare('UPDATE produtos SET nome = :nome, descricao = :descricao, foto = :foto, ext = :ext, idcategoria = :idcategoria, data_hora_atualizacao = NOW() WHERE id = :id');
             $stmt->execute(array(
                 ':nome' => $nome,
                 ':descricao' => $descricao,
                 ':foto' => $foto,
+                ':ext' => $ext,
                 ':idcategoria' => $idcategoria,
                 ':id' => $id
             ));

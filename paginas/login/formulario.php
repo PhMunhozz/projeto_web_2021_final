@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["nome"])){
+if(isset($_SESSION["usuarioid"])){
     header("Location: ../area_restrita.php");
 }
 
@@ -40,7 +40,7 @@ if(isset($_SESSION["nome"])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../produtos/visualizar_produtos" class="nav-link">
+                            <a href="../produtos/visualizar_produtos.php" class="nav-link">
                                 <i class="material-icons">shopping_cart</i>
                                 <p>Produtos</p>
                             </a>

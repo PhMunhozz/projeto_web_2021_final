@@ -113,7 +113,7 @@ require('../../class/Produto.class.php');
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Categoria</th>
-                            <th>Foto</th>
+                            <th style="text-align: center">Foto</th>
                             <th style="width: 2%;"></th>
                             <th style="width: 2%;"></th>
                             <th style="width: 2%;"></th>
@@ -130,7 +130,7 @@ require('../../class/Produto.class.php');
                               echo '<td>'.$produtos[$i]['nome'].'</td>';
                               echo '<td>'.$produtos[$i]['descricao'].'</td>';
                               echo '<td>'.$produtos[$i]['categoria'].'</td>';
-                              echo '<td>'.$produtos[$i]['foto'].'</td>';
+                              echo '<td style="width: 10%; text-align: center"><img src="fotos/'.$produtos[$i]['foto'].'.'.$produtos[$i]['ext'].'" style="width: 90%; border-radius: 50%"></td>';
                               echo '<td><a href="update/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: #df9100">edit</i><a/></td>';
                               echo '<td><a href="delete/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: red">close</i><a/></td>';
                               echo '<td><a href="detail/?ref='.$produtos[$i]['id'].'"><i class="material-icons" style="color: #5555c0">visibility</i></a></td>';

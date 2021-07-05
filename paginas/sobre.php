@@ -49,7 +49,7 @@
                         </li>
                         <li class="nav-item">
                         <?php
-                            if(!isset($_SESSION["nome"])) {
+                            if(!isset($_SESSION["usuarionome"])) {
                         ?>
                             <a href="login/formulario.php" class="nav-link">
                                 <i class="material-icons">login</i>
@@ -82,7 +82,7 @@
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <?php
-                        if(isset($_SESSION['nome'])) {
+                        if(isset($_SESSION['usuarionome'])) {
                     ?>
                     <div class="justify-content-end">
                         <a href="login/limpar_sessao.php"><i class="material-icons">logout</i></a>

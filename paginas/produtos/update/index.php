@@ -120,10 +120,10 @@ if (
         <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Alterar produto</h4>
+                  <h4 class="card-title"><a href="javascript:history.back()"><i class="material-icons">arrow_back</i></a> Alterar produto</h4>
                 </div>
                 <div class="card-body">
-                  <form action="update.php" method="POST">
+                  <form action="update.php" method="POST" enctype="multipart/form-data">
                     <div class="row">
                       <input type="hidden" name="id" id="inputId" value="<?php echo $id ?>">
                       <div class="col-md-4">
@@ -135,7 +135,11 @@ if (
                       <div class="col-md-4">
                         <div>
                           <label class="bmd-label-floating">Foto</label>
-                          <input type="file" class="form-control-file" accept="image/png, image/jpeg" name="foto" id="inputFoto" required>
+                          <br/>
+                          <?php
+                            echo '<img src="../fotos/'.$produto['foto'].'.'.$produto['ext'].'" style="width: 30%; border-radius: 50%">';
+                          ?>
+                          <input type="file" class="form-control-file" accept="image/png, image/jpeg" name="foto" id="inputFoto">               
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -162,6 +166,7 @@ if (
                     <button type="submit" class="btn btn-primary pull-right" style="float: right;">Alterar</button>
                     <div class="clearfix"></div>
                   </form>
+                  
                 </div>
               </div>
             </div>

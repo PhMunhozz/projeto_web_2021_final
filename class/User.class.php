@@ -2,6 +2,24 @@
 
 class User
 {
+    public function Login($usuario, $senha)
+    {
+        global $pdo;
+
+		$query = 'SELECT * FROM usuarios WHERE usuario = :usuario and senha = :senha';
+		$query = $pdo->prepare($query);
+		$query->bindValue("usuario", $usuario);
+        $query->bindValue("senha", $senha);
+		$query->execute();
+
+		if($query->rowCount() > 0){
+			$data = $query->fetch();
+            return $data;
+		}else{
+			return null;
+		}
+    }
+
     public function listAll()
     {
         global $pdo;
